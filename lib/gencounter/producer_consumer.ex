@@ -1,27 +1,16 @@
 defmodule Gencounter.ProducerConsumer do
-    use GenStage
+	use GenStage
 
-    require Integer
+	require Integer
 
-    def start_link do
-        GenStage.start_link(__MODULE__, :state, name: __MODULE__)
+    def start_link(_initial) do
+        GenStage.start_link(__MODULE__, :state_doesnt_matter, name: __MODULE__)
     end
 
-    @doc """
-    Subscribe to the producer
-    """
     def init(state) do
-        {:producer_consumer, state, subscribe_to: [Gencounter.Producer] }
+        {:producer_consumer, state, subscribe_to: [Gencounter.Producer]}
     end
 
-
-    @doc """
-    Receive in coming events using the events variable
-
-    The producer generates a list of numbers that can be consumed the producer consumer
-
-    it returns a tuple the second item is used by the next consumer down stream
-    """
     def handle_events(events, _from, state) do
         numbers =
             events

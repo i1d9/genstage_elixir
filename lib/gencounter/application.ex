@@ -9,9 +9,15 @@ defmodule Gencounter.Application do
   def start(_type, _args) do
     children = [
       # Starts a worker by calling: Gencounter.Worker.start_link(arg)
-      # {Gencounter.Worker, arg}
+      # {Gencounter., arg}
+      {Gencounter.Producer, 0},
+      {Gencounter.ProducerConsumer, []},
+      {Gencounter.Consumer, []},
     ]
 
+
+    
+    
     # See https://hexdocs.pm/elixir/Supervisor.html
     # for other strategies and supported options
     opts = [strategy: :one_for_one, name: Gencounter.Supervisor]
